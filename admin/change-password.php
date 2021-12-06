@@ -44,7 +44,7 @@ require_once "include/header.php";
                         echo "<script>
                         $(document).ready(function() {
                             $('#addMsg').text( 'Password Updated successfully! Log in With New Password');
-                            $('#linkBtn').attr('href','login.php');
+                            $('#linkBtn').attr('href','../login.php');
                             $('#linkBtn').text('OK, Understood');
                             $('#modalHead').hide();
                             $('#closeBtn').hide();
@@ -76,19 +76,19 @@ require_once "include/header.php";
                                     <h4 class="text-center">Change Password</h4>
                                     <form method="POST" action="<?php htmlspecialchars($_SERVER['PHP_SELF']) ?>">
                                         <div class="form-group">
-                                            <label >Old Password : </label>
+                                            <label >Old Password : &nbsp <span style="color:#ff0000">*</span></label>
                                             <input type="password" name="old_pass" class="form-control" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
                                             <?php echo $old_passErr; ?>
                                         </div>
                                         <div class="form-group">
-                                            <label >New Password : </label>
+                                            <label >New Password : &nbsp <span style="color:#ff0000">*</span></label>
                                             <input type="password" name="new_pass" class="form-control" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
                                             <?php echo $new_passErr; ?>
 
                                         </div>
                                         <div class="form-group">
-                                            <label >Confirm Password : </label>
-                                            <input type="password" name="confirm_pass" class="form-control" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
+                                            <label >Confirm Password : &nbsp <span style="color:#ff0000">*</span></label>
+                                            <input type="password" name="confirm_pass" class="form-control" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Confirm Password should be same as New Password" required>
                                             <?php echo $confirm_passErr; ?>
 
                                         </div>
