@@ -4,33 +4,33 @@
 
 
 <?php  
- require_once "../connection.php";
- $session_email =  $_SESSION["email_emp"];
+    require_once "../connection.php";
+    $session_email =  $_SESSION["email_emp"];
     $sql = "SELECT * FROM employee WHERE email= '$session_email' ";
     $result = mysqli_query($conn , $sql);
 
 
- if(mysqli_num_rows($result) > 0 ){
- 
-     while($rows = mysqli_fetch_assoc($result) ){
-         $fname = $rows["fname"];
-         $lname = $rows["lname"];
-         $email = $rows["email"];
-         $dob = $rows["dob"];
-         $gender = $rows["gender"];
-         $salary = $rows["salary"];
-         $designation = $rows["designation"];
-         $contact = $rows["contact"];
-         $address = $rows["address"];
-         $pancard = $rows["pancard"];
-         $Joiningdate = $rows["Joiningdate"];
+if(mysqli_num_rows($result) > 0 ){
+
+    while($rows = mysqli_fetch_assoc($result) ){
+        $fname = $rows["fname"];
+        $lname = $rows["lname"];
+        $email = $rows["email"];
+        $dob = $rows["dob"];
+        $gender = $rows["gender"];
+        $salary = $rows["salary"];
+        $designation = $rows["designation"];
+        $contact = $rows["contact"];
+        $address = $rows["address"];
+        $pancard = $rows["pancard"];
+        $Joiningdate = $rows["Joiningdate"];
          //$orgid = $rows["orgid"];
         
-     }
- }
+    }
+}
 
- $passErr = $fnameErr = $lnameErr = $emailErr  = $salaryErr = $addressErr = $pancardErr = $contactErr = $designationErr = "";
-      
+$passErr = $fnameErr = $lnameErr = $emailErr  = $salaryErr = $addressErr = $pancardErr = $contactErr = $designationErr = "";
+    
 
 if( $_SERVER["REQUEST_METHOD"] == "POST" ){
 
@@ -81,7 +81,7 @@ if( $_SERVER["REQUEST_METHOD"] == "POST" ){
     }else{
         $email = $_REQUEST["email"];
     }
-   if( empty($_REQUEST["address"]) ){
+    if( empty($_REQUEST["address"]) ){
         $addressErr = "<p style='color:red'> * Address is required</p> ";
     }else{
         $address = $_REQUEST["address"];
@@ -104,7 +104,7 @@ if( $_SERVER["REQUEST_METHOD"] == "POST" ){
     }else{
         $pancard = $_REQUEST["pancard"];
     }
-          
+
                 // database connection
                // require_once "../connection.php";
                 $sql_select_query = "SELECT email FROM employee WHERE email = '$email' ";
@@ -122,8 +122,6 @@ if( $_SERVER["REQUEST_METHOD"] == "POST" ){
                     $address = mysqli_real_escape_string($conn, $_POST['address']);
                     $pancard =  mysqli_real_escape_string($conn, $_POST['pancard']);
                     $Joiningdate =  mysqli_real_escape_string($conn, $_POST['Joiningdate']);
-                   
-                   
                 }
                 $result = mysqli_query($conn, "UPDATE employee SET `fname` = '$fname' , `lname` = '$lname' ,`email` = '$email', `salary`=$salary, `dob`='$dob', `gender`='$gender' , `contact`=$contact , `address`='$address' , `pancard`='$pancard', `designation`= '$designation' , `Joiningdate`='$Joiningdate'   WHERE email='$_SESSION[email_emp]' ");
 
@@ -163,13 +161,13 @@ if( $_SERVER["REQUEST_METHOD"] == "POST" ){
                                 <div class="form-group">
                                     <label >First Name : &nbsp <span style="color:#ff0000">*</span></label>
                                     <input type="text" class="form-control" value="<?php echo $fname; ?>"  name="fname" required >
-                                   <?php echo $fnameErr; ?>
+                                    <?php echo $fnameErr; ?>
                                 </div>
 
                                 <div class="form-group">
                                     <label >Last Name : &nbsp <span style="color:#ff0000">*</span></label>
                                     <input type="text" class="form-control" value="<?php echo $lname; ?>"  name="lname" required >
-                                   <?php echo $lnameErr; ?>
+                                    <?php echo $lnameErr; ?>
                                 </div>
 
                                 <div class="form-group">
@@ -212,7 +210,7 @@ if( $_SERVER["REQUEST_METHOD"] == "POST" ){
 
                                 <div class="form-group">
                                     <label >Contact No. : &nbsp <span style="color:#ff0000">*</span></label>
-                                    <input type="tel" class="form-control" pattern="[0-9]{4}[0-9]{3}[0-9]{3}" value="<?php echo $contact; ?>" name="contact" required>  
+                                    <input type="tel" class="form-control" pattern="[6789][0-9]{9}" value="<?php echo $contact; ?>" name="contact" required>  
                                     <?php echo $contactErr; ?>            
                                 </div>
 
@@ -233,22 +231,21 @@ if( $_SERVER["REQUEST_METHOD"] == "POST" ){
                                     <input type="text" class="form-control" value="<?php echo $designation; ?>" name="designation" required >  
                                     <?php echo $designationErr; ?>            
                                 </div>
-                               
 
                                 <div class="form-group">
                                     <label >Joining Date : &nbsp <span style="color:#ff0000">*</span></label>
                                     <input type="date" class="form-control" value="<?php echo $Joiningdate; ?>" name="Joiningdate" required> 
                                 </div>
-                              
+
                                 <div class="btn-toolbar justify-content-between" role="toolbar" aria-label="Toolbar with button groups">
                                     <div class="btn-group">
-                                   <input type="submit" value="Save Changes" class="btn btn-primary w-20 " name="save_changes" >        
+                                    <input type="submit" value="Save Changes" class="btn btn-primary w-20 " name="save_changes" >        
                                     </div>
                                     <div class="input-group">
-                                         <a href="profile.php" class="btn btn-primary w-20">Close</a>
+                                        <a href="profile.php" class="btn btn-primary w-20">Close</a>
                                     </div>
                                 </div>
-                                  </form>
+                                </form>
                             </div>
                         </div>
                     </div>
