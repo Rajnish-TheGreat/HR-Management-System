@@ -100,7 +100,7 @@ $orgid=$admindata['id'];
                     $emailErr = "<p style='color:red'> * Email already registered! Try a different email.</p>";
                 } else{
 
-                    $sql = "INSERT INTO employee( fname , lname , email , gender , salary , dob , password , contact , address , pancard , designation , Joiningdate , orgid ) VALUES( '$fname' , '$fname' , '$email' , '$gender' , $salary , '$dob' , '$pass' ,  '$contact' , '$address' , '$pancard' , '$designation'  , '$Joiningdate' , $orgid)  ";
+                    $sql = "INSERT INTO employee( fname , lname , email , gender , salary , dob , password , contact , address , pancard , designation , Joiningdate , orgid ) VALUES( '$fname' , '$lname' , '$email' , '$gender' , $salary , '$dob' , '$pass' ,  '$contact' , '$address' , '$pancard' , '$designation'  , '$Joiningdate' , $orgid)  ";
                     $result = mysqli_query($conn , $sql);
                     if($result){
                         $fname = $lname = $email = $dob = $gender = $pass = $salary = $contact = $address = $pancard = $designation = $Joiningdate ="";
@@ -172,7 +172,7 @@ $orgid=$admindata['id'];
                                 </div>
                                 <div class="form-group">
                                     <label >Salary : &nbsp <span style="color:#ff0000">*</span></label>
-                                    <input type="number" class="form-control" value="<?php echo $salary; ?>" name="salary"required >  
+                                    <input type="number" class="form-control" min="0" value="<?php echo $salary; ?>" name="salary"required >  
                                     <?php echo $salaryErr; ?>            
                                 </div>
 
@@ -199,7 +199,7 @@ $orgid=$admindata['id'];
 
                                 <div class="form-group">
                                     <label >Contact No. : &nbsp <span style="color:#ff0000">*</span></label>
-                                    <input type="tel" class="form-control" pattern="[0-9]{4}[0-9]{3}[0-9]{3}" value="<?php echo $contact; ?>" name="contact" required >  
+                                    <input type="tel" class="form-control" pattern="[6789][0-9]{9}" value="<?php echo $contact; ?>" name="contact" required >  
                                     <?php echo $contactErr; ?>            
                                 </div>
 

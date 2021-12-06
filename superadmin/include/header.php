@@ -1,7 +1,7 @@
 <?php 
     session_start();
     if( empty($_SESSION["email"]) ){
-        header("Location: ./login.php");
+        header("Location: ../login.php");
     }
 ?>
 
@@ -71,7 +71,7 @@
                     </li>
                    
                     <li>
-                        <a href="./logout.php" >
+                        <a href="../logout.php" >
                             <i class="icon-logout menu-icon"></i><span class="nav-text">Logout</span>
                         </a>
                     </li>              

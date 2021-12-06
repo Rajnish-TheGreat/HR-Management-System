@@ -7,7 +7,7 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
-    <link href="../resorce/css/style.css" rel="stylesheet">
+    <link href="resorce/css/style.css" rel="stylesheet">
 
     <title>HR Management System</title>
     <style>
@@ -17,17 +17,17 @@
     }
 
 .bg {
-  background-image: url("../background.jpg");
-  height: 100%; 
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  
+    background-image: url("background.jpg");
+    height: 100%; 
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 </style>
 </head>
 <body >
 <?php 
+ $role ="";
 $email_err = $pass_err = $login_Err = "";
 $email = $pass = "";
 
@@ -48,19 +48,50 @@ if( $_SERVER["REQUEST_METHOD"] == "POST" ){
   if( !empty($email) && !empty($pass) ){
 
     // database connection
-    require_once "../connection.php";
+    require_once "connection.php";
 
-    $sql_query = "SELECT * FROM superadmin WHERE email='$email' && password = '$pass'  ";
+    $sql_query = "SELECT * FROM user WHERE email='$email' && password = '$pass'  ";
     $result = mysqli_query($conn , $sql_query);
 
     if ( mysqli_num_rows($result) > 0 ){
      while( $rows = mysqli_fetch_assoc($result) ){
-      session_start();
-      session_unset();
-      $_SESSION["email"] = $rows["email"];
-      header("Location: dashboard.php?login-sucess");
-     }
-    }else{
+      $role= $rows["role"];
+      switch($role){
+        case "superadmin":
+          session_start();
+          session_unset();
+          $_SESSION["email"] = $rows["email"];
+          header("Location: superadmin/dashboard.php?login-sucess");
+          break;
+        case "organization":
+          session_start();
+          session_unset();
+           $_SESSION["email"] = $rows["email"];
+          header("Location: admin/dashboard.php?login-sucess");
+          break;
+          case "employee":
+            session_start();
+            session_unset();
+             $_SESSION["email_emp"] = $rows["email"];
+            header("Location: employee/dashboard.php?login-sucess");
+            break;
+        default: echo"Invalid";
+      }
+      // if($role = "superadmin"){
+      //   session_start();
+      //   session_unset();
+      //   $_SESSION["email"] = $rows["email"];
+      //   header("Location: superadmin/dashboard.php?login-sucess");
+       
+      // }else if($role = "organization"){
+      //   echo"def";
+      // session_start();
+      // session_unset();
+      // $_SESSION["email"] = $rows["email"];
+      // header("Location: admin/dashboard.php?login-sucess");
+      // }   
+  }
+} else{
       $login_Err = "<div class='alert alert-warning alert-dismissible fade show'>
       <strong>Invalid Email/Password</strong>
       <button type='button' class='close' data-dismiss='alert' >
@@ -68,7 +99,7 @@ if( $_SERVER["REQUEST_METHOD"] == "POST" ){
       </button>
     </div>";
     }
-  }
+}
 }
 ?>
  
@@ -80,7 +111,7 @@ if( $_SERVER["REQUEST_METHOD"] == "POST" ){
                     <div class="form-input-content">
                         <div class="card login-form mb-0">
                             <div class="card-body pt-5 shadow">
-                                <h4 class="text-center">Admin Login</h4>
+                                <h4 class="text-center">Login</h4>
                                   <div class="text-center my-5"> <?php echo $login_Err; ?> </div>
                                     <form method="POST" action=" <?php htmlspecialchars($_SERVER['PHP_SELF']) ?>">
                                 
@@ -92,7 +123,7 @@ if( $_SERVER["REQUEST_METHOD"] == "POST" ){
 
                                     <div class="form-group">
                                         <label >Password :</label>
-                                        <input type="password" class="form-control" name="password" required >
+                                        <input type="password" class="form-control" name="password" required>
                                         <?php echo $pass_err; ?>
                                     </div>
 
@@ -100,7 +131,7 @@ if( $_SERVER["REQUEST_METHOD"] == "POST" ){
                                         <input type="submit" value="Log-In" class="btn btn-primary btn-lg w-100 " name="signin" >
                                     </div>
                                     
-                                  <a href="../index.php"> <input type="button"  class="btn btn-primary" value="Back"></a>
+                                    <a href="index.php"> <input type="button"  class="btn btn-primary" value="Back"></a>
                                 </form>
                             </div>
                         </div>
@@ -109,8 +140,8 @@ if( $_SERVER["REQUEST_METHOD"] == "POST" ){
             </div>
         </div>
     </div>
-  </div>
- 
+</div>
+
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
     <script src="./resorce/plugins/common/common.min.js"></script>
@@ -118,5 +149,5 @@ if( $_SERVER["REQUEST_METHOD"] == "POST" ){
     <script src="./resorce/js/settings.js"></script>
     <script src="./resorce/js/gleek.js"></script>
     <script src="./resorce/js/styleSwitcher.js"></script>
-  </body>
+    </body>
 </html>

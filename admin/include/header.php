@@ -1,9 +1,9 @@
 <?php 
     session_start();
     if( empty($_SESSION["email"]) ){
-        header("Location: ./login.php");
+        header("Location: ../login.php");
     }
-?>
+?> 
 
 <!DOCTYPE html>
 <html lang="en">
@@ -68,14 +68,8 @@ $(document).ready(function() {
                         </a>
                     </li>
                     <li>
-                        <a href="./profile.php"  >
-                            <!-- <img src="https://icon-library.net//images/icon-profile/icon-profile-20.jpg" width="14"> -->
-                            <i class="fa fa-user menu-icon"></i><span class="nav-text"> My Profile</span>
-                        </a>
-                    </li>
-                    <li>
                     <a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                            <i class="fa fa-address-card-o menu-icon"></i><span class="nav-text">Employee</span>
+                            <i class="fa fa-address-card-o menu-icon"></i><span class="nav-text">Employee Management</span>
                         </a>
                         <ul aria-expanded="false">
                             <li><a href="./add-employee.php"> <i class="icon-plus menu-icon"></i><span class="nav-text">Add Employee</span></a></li>
@@ -85,7 +79,7 @@ $(document).ready(function() {
                     </li>
                     <li>
                     <a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                            <i class="fa fa-address-card-o menu-icon"></i><span class="nav-text">Department</span>
+                            <i class="fa fa-address-card-o menu-icon"></i><span class="nav-text">Organization Management</span>
                         </a>
                         <ul aria-expanded="false">
                             <li><a href="./manage-dept.php"> <i class="fa fa-tasks menu-icon"></i><span class="nav-text">View Department</span></a></li>
@@ -95,11 +89,17 @@ $(document).ready(function() {
                     </li>
                     <li>
                         <a href="./manage-leave.php" >
-                            <i class="fa fa-tasks menu-icon"></i><span class="nav-text">Leaves to Approve</span>
+                            <i class="fa fa-tasks menu-icon"></i><span class="nav-text">Manage Employee Leave</span>
                         </a>
                     </li>
                     <li>
-                        <a href="./logout.php" >
+                        <a href="./profile.php"  >
+                            <!-- <img src="https://icon-library.net//images/icon-profile/icon-profile-20.jpg" width="14"> -->
+                            <i class="fa fa-user menu-icon"></i><span class="nav-text"> My Profile</span>
+                        </a>
+                    </li>   
+                    <li>
+                        <a href="../logout.php" >
                             <i class="icon-logout menu-icon"></i><span class="nav-text">Logout</span>
                         </a>
                     </li>              

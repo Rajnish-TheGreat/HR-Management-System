@@ -65,18 +65,18 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                                 <form method="POST" action=" <?php htmlspecialchars($_SERVER['PHP_SELF']) ?>">
                                 
                                     <div class="form-group">
-                                        <label >Reason :</label>
+                                        <label >Reason : &nbsp <span style="color:#ff0000">*</span></label>
                                         <input type="text" class="form-control" value="<?php echo $reason; ?> " name="reason" >  
                                         <?php echo $reasonErr; ?>           
                                     </div>
 
                                     <div class="form-group">
-                                        <label >Staring Date :</label>
+                                        <label >Staring Date : &nbsp <span style="color:#ff0000">*</span></label>
                                         <input type="date" class="form-control"  value="<?php echo $startdate; ?>"  name="startDate" >
                                         <?php echo $startdateErr; ?>
                                     </div>
                                     <div class="form-group">
-                                        <label >Last Date :</label>
+                                        <label >Last Date : &nbsp <span style="color:#ff0000">*</span></label>
                                         <input type="date" class="form-control"  value="<?php echo $lastdate; ?>"  name="lastDate" >
                                         <?php echo $lastdateErr; ?>
                                     </div>

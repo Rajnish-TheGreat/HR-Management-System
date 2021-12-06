@@ -20,16 +20,16 @@
          $gender = $rows["gender"];
          $salary = $rows["salary"];
          $designation = $rows["designation"];
-         $department = $rows["department"];
          $contact = $rows["contact"];
          $address = $rows["address"];
          $pancard = $rows["pancard"];
          $Joiningdate = $rows["Joiningdate"];
-         $orgid = $rows["orgid"];
+         //$orgid = $rows["orgid"];
+        
      }
  }
 
- $passErr = $orgidErr=$fnameErr = $lnameErr = $emailErr  = $salaryErr = $addressErr = $pancardErr = $contactErr = $designationErr = $departmentErr = "";
+ $passErr = $fnameErr = $lnameErr = $emailErr  = $salaryErr = $addressErr = $pancardErr = $contactErr = $designationErr = "";
       
 
 if( $_SERVER["REQUEST_METHOD"] == "POST" ){
@@ -93,12 +93,6 @@ if( $_SERVER["REQUEST_METHOD"] == "POST" ){
         $designation = $_REQUEST["designation"];
     }
 
-    if( empty($_REQUEST["department"]) ){
-        $departmentErr = "<p style='color:red'> * Department is required</p> ";
-    }else{
-        $department = $_REQUEST["department"];
-    }
-
     if( empty($_REQUEST["contact"]) ){
         $contactErr = "<p style='color:red'> * Contact Number is required</p> ";
     }else{
@@ -110,12 +104,7 @@ if( $_SERVER["REQUEST_METHOD"] == "POST" ){
     }else{
         $pancard = $_REQUEST["pancard"];
     }
-    if( empty($_REQUEST["orgid"]) ){
-        $orgidErr = "<p style='color:red'> * Organization Id is required</p> ";
-    }else{
-        $orgid = $_REQUEST["orgid"];
-    }
-              
+          
                 // database connection
                // require_once "../connection.php";
                 $sql_select_query = "SELECT email FROM employee WHERE email = '$email' ";
@@ -129,15 +118,14 @@ if( $_SERVER["REQUEST_METHOD"] == "POST" ){
                     $gender = mysqli_real_escape_string($conn, $_POST['gender']);
                     $salary = mysqli_real_escape_string($conn, $_POST['salary']);
                     $designation =  mysqli_real_escape_string($conn, $_POST['designation']);
-                    $department = mysqli_real_escape_string($conn, $_POST['department']);
                     $contact =  mysqli_real_escape_string($conn, $_POST['contact']);
                     $address = mysqli_real_escape_string($conn, $_POST['address']);
                     $pancard =  mysqli_real_escape_string($conn, $_POST['pancard']);
                     $Joiningdate =  mysqli_real_escape_string($conn, $_POST['Joiningdate']);
-                    $orgid =  mysqli_real_escape_string($conn, $_POST['orgid']);
+                   
                    
                 }
-                $result = mysqli_query($conn, "UPDATE employee SET `fname` = '$fname' , `lname` = '$lname' ,`email` = '$email', `salary`='$salary', `dob`='$dob', `gender`='$gender' , `contact`=$contact , `address`='$address' , `pancard`=$pancard , `designation`= '$designation' , `department`='$department' , `Joiningdate`='$Joiningdate',`orgid`=$orgid    WHERE email='$_SESSION[email_emp]' ");
+                $result = mysqli_query($conn, "UPDATE employee SET `fname` = '$fname' , `lname` = '$lname' ,`email` = '$email', `salary`=$salary, `dob`='$dob', `gender`='$gender' , `contact`=$contact , `address`='$address' , `pancard`='$pancard', `designation`= '$designation' , `Joiningdate`='$Joiningdate'   WHERE email='$_SESSION[email_emp]' ");
 
                     if($result){
                         $_SESSION['email_emp']= $email;
@@ -197,7 +185,7 @@ if( $_SERVER["REQUEST_METHOD"] == "POST" ){
 
                                 <div class="form-group">
                                     <label >Salary : &nbsp <span style="color:#ff0000">*</span></label>
-                                    <input type="number" class="form-control" value="<?php echo $salary; ?>" name="salary" required >  
+                                    <input type="number" class="form-control" min="0"  value="<?php echo $salary; ?>" name="salary" required >  
                                     <?php echo $salaryErr; ?>            
                                 </div>
 
@@ -236,7 +224,7 @@ if( $_SERVER["REQUEST_METHOD"] == "POST" ){
 
                                 <div class="form-group">
                                     <label >Pancard No. : &nbsp <span style="color:#ff0000">*</span></label>
-                                    <input type="number" class="form-control" value="<?php echo $pancard; ?>" name="pancard"pattern = "^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$" required >  
+                                    <input type="text" class="form-control" value="<?php echo $pancard; ?>" name="pancard"pattern = "^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$" required >  
                                     <?php echo $pancardErr; ?>            
                                 </div>
 
@@ -245,21 +233,13 @@ if( $_SERVER["REQUEST_METHOD"] == "POST" ){
                                     <input type="text" class="form-control" value="<?php echo $designation; ?>" name="designation" required >  
                                     <?php echo $designationErr; ?>            
                                 </div>
-                                <div class="form-group">
-                                    <label >Department : &nbsp <span style="color:#ff0000">*</span></label>
-                                    <input type="text" class="form-control" value="<?php echo $department; ?>" name="department"required >  
-                                    <?php echo $departmentErr; ?>            
-                                </div>
+                               
 
                                 <div class="form-group">
                                     <label >Joining Date : &nbsp <span style="color:#ff0000">*</span></label>
                                     <input type="date" class="form-control" value="<?php echo $Joiningdate; ?>" name="Joiningdate" required> 
                                 </div>
-                                <div class="form-group">
-                                    <label >Organization Id : &nbsp <span style="color:#ff0000">*</span></label>
-                                    <input type="number" class="form-control" value="<?php echo $orgid; ?>" name="orgid" >  
-                                    <?php echo $orgidErr; ?>            
-                                </div>
+                              
                                 <div class="btn-toolbar justify-content-between" role="toolbar" aria-label="Toolbar with button groups">
                                     <div class="btn-group">
                                    <input type="submit" value="Save Changes" class="btn btn-primary w-20 " name="save_changes" >        

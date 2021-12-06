@@ -71,7 +71,7 @@
                     $emailErr = "<p style='color:red'> * Email already registered! Please Try a different email</p>";
                 } else{
 
-                    $sql = "INSERT INTO organization (  orgname, email , password  , address , employername , contact , website , gstno ) VALUES( '$orgname' , '$email' , '$pass' , '$address' , '$empname' , '$contact' , '$website' , '$gstno' )  ";
+                    $sql = "INSERT INTO organization (  orgname, email , password  , address , employername , contact , website , gstno ) VALUES( '$orgname' , '$email' , '$pass' , '$address' , '$empname' , $contact , '$website' , '$gstno' )  ";
                     $result = mysqli_query($conn , $sql);
                     if($result){
                         $orgname = $email = $pass = $address = $empname = $contact = $website = $gstno = "";
@@ -138,7 +138,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label >Contact No. : &nbsp <span style="color:#ff0000">*</span></label>
-                                    <input type="tel" class="form-control" pattern="[0-9]{4}[0-9]{3}[0-9]{3}" value="<?php echo $contact; ?>" name="contact"required >  
+                                    <input type="tel" class="form-control" pattern="[6789][0-9]{9}" value="<?php echo $contact; ?>" name="contact"required >  
                                     <?php echo $contactErr; ?>            
                                 </div>
                                 <div class="form-group">

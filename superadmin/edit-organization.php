@@ -158,7 +158,7 @@ $result = mysqli_query($conn, "UPDATE `organization` SET `orgname`='$orgname',`e
                                 </div>
                                 <div class="form-group">
                                     <label >Contact No. : &nbsp <span style="color:#ff0000">*</span></label>
-                                    <input type="tel" class="form-control" pattern="[0-9]{4}[0-9]{3}[0-9]{3}" value="<?php echo $contact; ?>" name="contact"required >  
+                                    <input type="tel" class="form-control" pattern="[6789][0-9]{9}" value="<?php echo $contact; ?>" name="contact"required >  
                                     <?php echo $contactErr; ?>            
                                 </div>
                                 <div class="form-group">

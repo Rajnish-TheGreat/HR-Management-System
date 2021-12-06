@@ -40,18 +40,13 @@
                             <div class="card-body shadow">   
 
                                     <h2 class="text-center pb-4">HR Management System</h2>
-                                    <h6 class="text-center pb-4">Please Log-In Acording To Your Role!!</h6>
-                                <div class="container mt-4" style="width:1200px;">
-                                  <div class="btn-toolbar justify-content">
-                                        <div class="btn-group">
-                                          <a href="superadmin/dashboard.php" class="btn btn-primary btn-lg">Admin LogIn</a>
-                                        </div>
-                                        <div class="btn-group">
-                                          <a href="admin/dashboard.php" class="btn btn-primary btn-lg">Organization LogIn</a>
-                                        </div>
-                                        <centre> <div class="btn-group" >
-                                          <a href="employee/dashboard.php" class="btn btn-primary btn-lg">Employee LogIn</a>
-                                        </div></centre>
+                                    <h6 class="text-center pb-4">Please Log-In </h6>
+                
+                                <div class="container " style="width:1200px;">
+                                  <div  class="col-5 d-flex justify-content-center text-center">
+                                    
+                                          <a href="login.php" class="btn btn-primary btn-lg" > LogIn</a>
+                                        
                                     </div>
                                 </div>                        
                             </div>

@@ -45,7 +45,7 @@ require_once "include/header.php";
 
             }
         }else {
-            echo "no leave found";
+            echo "";
         }
 
         // highest paid employee

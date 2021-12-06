@@ -19,7 +19,6 @@ require_once "include/header.php";
             $dp = $rows["dp"];     
             $id = $rows["id"];
             $designation = $rows["designation"];
-            $department = $rows["department"];
             $contact = $rows["contact"];
             $address = $rows["address"];
             $pancard = $rows["pancard"];
@@ -118,12 +117,7 @@ require_once "include/header.php";
                         <td><strong>Designation</strong></td>
                         <td><?php echo $designation ?></td>
                     </tr>
-                    <tr>
-                        <td style="width: 10px" class="text-center"><i class="fa fa-home"></i>
-                        </td>
-                        <td><strong>Department</strong></td>
-                        <td><?php echo $department ?></td>
-                    </tr>
+                    
                 </tbody>
             </table>    
             <p class="text-center">

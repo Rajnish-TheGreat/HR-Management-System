@@ -132,7 +132,7 @@
                     $Joiningdate =  mysqli_real_escape_string($conn, $_POST['Joiningdate']);
                                      
                 }
-              $result = mysqli_query($conn, "UPDATE employee SET `fname` = '$fname' , `lname` = '$lname' ,`email` = '$email', `salary`='$salary', `dob`='$dob', `gender`='$gender' , `contact`=$contact , `address`='$address' , `pancard`='$pancard' , `designation`= '$designation' , `Joiningdate`='$Joiningdate' ,`orgid`=$orgid  WHERE id = $id ");
+              $result = mysqli_query($conn, "UPDATE employee SET `fname` = '$fname' , `lname` = '$lname' ,`email` = '$email', `salary`=$salary, `dob`='$dob', `gender`='$gender' , `contact`='$contact' , `address`='$address' , `pancard`='$pancard' , `designation`= '$designation' , `Joiningdate`='$Joiningdate' ,`orgid`=$orgid  WHERE id = $id ");
 
                     if($result){
                         echo "<script>
@@ -188,7 +188,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label >Salary : &nbsp <span style="color:#ff0000">*</span></label>
-                                    <input type="number" class="form-control" value="<?php echo $salary; ?>" name="salary"required >  
+                                    <input type="number" class="form-control" min="0" value="<?php echo $salary; ?>" name="salary"required >  
                                     <?php echo $salaryErr; ?>            
                                 </div>
 
@@ -215,7 +215,7 @@
 
                                 <div class="form-group">
                                     <label >Contact No. : &nbsp <span style="color:#ff0000">*</span></label>
-                                    <input type="tel" class="form-control" pattern="[0-9]{4}[0-9]{3}[0-9]{3}" value="<?php echo $contact; ?>" name="contact" required >  
+                                    <input type="tel" class="form-control" pattern="[6789][0-9]{9}" value="<?php echo $contact; ?>" name="contact" required >  
                                     <?php echo $contactErr; ?>            
                                 </div>
 

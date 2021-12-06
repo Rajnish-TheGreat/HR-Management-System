@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 05, 2021 at 09:02 AM
+-- Generation Time: Dec 06, 2021 at 08:17 AM
 -- Server version: 10.4.8-MariaDB
 -- PHP Version: 7.3.11
 
@@ -74,12 +74,12 @@ CREATE TABLE `employee` (
 --
 
 INSERT INTO `employee` (`id`, `fname`, `lname`, `email`, `gender`, `dob`, `password`, `salary`, `dp`, `contact`, `address`, `pancard`, `designation`, `Joiningdate`, `orgid`, `depid`) VALUES
-(21, 'sayali', 'Dalal', 'sayali@gmail.com', 'Female', '2003-12-10', '1234', 56887, '', 2147483647, 'kondhwa budruk ,pune', 'ABCDE1234F', 'Intern', '2021-12-02', 13, 13),
-(23, 'sayali', 'dalal', 'sayali1@gmail.com', 'Female', '2012-06-13', '1234', 34566, '', 2147483647, 'kondhwa ,pune', '2147483647', 'manager', '2021-12-03', 13, 16),
+(21, 'sayali', 'Dalal', 'sayali@gmail.com', 'Female', '2003-12-10', '1234', 56891, '', 2147483647, 'kondhwa budruk ,pune', 'ABCDE1234D', 'Intern', '2021-12-02', 13, 13),
 (24, 'simba', 'nagpal', 'simba@gmail.com', 'Male', '2001-03-08', '1234', 100000, '', 2147483612, 'kondhwa budruk,pune', 'ABCDE1234F', 'manager', '2021-12-18', 13, 14),
 (82, 'abc', 'def', 'def@gmail.com', 'Male', '2001-12-06', '12345678Av', 30000, '', 1234567890, 'pune', 'ABCDE1234F', 'manager', '2021-12-05', 13, 0),
 (83, 'abcd', 'abcd', 'efg@gmail.com', 'Male', '2003-12-24', '1234567890Ab', 30000, '', 1234567890, 'pune', 'ABCDE1234F', 'Manager', '2021-12-11', 13, 13),
-(84, 'ABCD', 'abcd', 'efgh@gmail.com', 'Male', '2003-12-24', '1234567890Ab', 30000, '', 1234567890, 'pune', 'ABCDE1234F', 'Manager', '2021-12-11', 13, 13);
+(84, 'ABCD', 'abcd', 'efgh@gmail.com', 'Male', '2003-12-24', '1234567890Ab', 30000, '', 1234567890, 'pune', 'ABCDE1234F', 'Manager', '2021-12-11', 13, 13),
+(85, 'ABCD', 'ABCD', 'abc@gmail.com', 'Female', '2003-12-12', '12345678Ab', 30000, '', 1234567890, 'pune', 'ABCDE1234D', 'Manager', '2021-12-06', 21, 0);
 
 --
 -- Triggers `employee`
@@ -90,6 +90,22 @@ $$
 DELIMITER ;
 DELIMITER $$
 CREATE TRIGGER `Mysqltriggerlname` BEFORE INSERT ON `employee` FOR EACH ROW SET NEW.lname = UPPER(NEW.lname)
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `delete_empleave_after_delete` AFTER DELETE ON `employee` FOR EACH ROW DELETE FROM emp_leave WHERE email = old.email
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `delete_trigger_employee` AFTER DELETE ON `employee` FOR EACH ROW DELETE FROM user WHERE email = old.email
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `edit_trigger_employee` AFTER UPDATE ON `employee` FOR EACH ROW UPDATE user SET email=NEW.email , password= NEW.password WHERE email = old.email
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `emptrigger_after_insert` AFTER INSERT ON `employee` FOR EACH ROW INSERT INTO user (email , password , role ) VALUES (NEW.email , NEW.password , 'employee')
 $$
 DELIMITER ;
 
@@ -152,7 +168,24 @@ CREATE TABLE `organization` (
 INSERT INTO `organization` (`id`, `orgname`, `email`, `password`, `address`, `employername`, `contact`, `website`, `gstno`, `dp`) VALUES
 (13, 'Camlin', 'camlin@gmail.com', '1234', 'pune', 'Piyush patil', 2147483123, 'https://www.google.in/', '27AAPFU0939F1ZV', ''),
 (15, 'Apsara', 'apsara@gmail.com', '1234', 'kondhwa,pune ', 'Piyush patil1', 2147483647, 'https://www.google.in/', '27AAPFU0939F1ZV', ''),
-(16, 'Gada electronics', 'gada@gmail.com', '1234', 'kondhwa ,pune', 'Jethalal gada', 2147483647, 'https://www.gadaelectronics.in/', '27AAPFU0123F1ZV', '');
+(16, 'Gada electronics', 'gada@gmail.com', '1234', 'kondhwa ,pune', 'Jethalal gada', 2147483647, 'https://www.gadaelectronics.in/', '27AAPFU0123F1ZV', ''),
+(21, 'qwe', 'qwe@gmail.com', '12345678Abc', 'pune', 'qwrt', 1234567890, 'http://localhost/hr-management-system/superadmin/add-organization.php', '27AAPFU0123F1ZV', '');
+
+--
+-- Triggers `organization`
+--
+DELIMITER $$
+CREATE TRIGGER `delete_trigger` AFTER DELETE ON `organization` FOR EACH ROW DELETE FROM user WHERE email = old.email
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `edit_trigger` AFTER UPDATE ON `organization` FOR EACH ROW UPDATE user SET email=NEW.email , password=NEW.password WHERE email = old.email
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `orgtrigger_after_insert` AFTER INSERT ON `organization` FOR EACH ROW INSERT INTO user (email , password , role ) VALUES (NEW.email , NEW.password , 'organization')
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -172,6 +205,27 @@ CREATE TABLE `superadmin` (
 
 INSERT INTO `superadmin` (`id`, `email`, `password`) VALUES
 (1, 'superadmin@gmail.com', '1234');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user`
+--
+
+CREATE TABLE `user` (
+  `id` int(20) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `password` varchar(75) NOT NULL,
+  `role` varchar(75) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `user`
+--
+
+INSERT INTO `user` (`id`, `email`, `password`, `role`) VALUES
+(2, 'qwe@gmail.com', '12345678Abc', 'organization'),
+(6, 'abc@gmail.com', '12345678Ab', 'employee');
 
 --
 -- Indexes for dumped tables
@@ -212,6 +266,12 @@ ALTER TABLE `superadmin`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `user`
+--
+ALTER TABLE `user`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -225,7 +285,7 @@ ALTER TABLE `department`
 -- AUTO_INCREMENT for table `employee`
 --
 ALTER TABLE `employee`
-  MODIFY `id` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=85;
+  MODIFY `id` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=86;
 
 --
 -- AUTO_INCREMENT for table `emp_leave`
@@ -237,13 +297,19 @@ ALTER TABLE `emp_leave`
 -- AUTO_INCREMENT for table `organization`
 --
 ALTER TABLE `organization`
-  MODIFY `id` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `superadmin`
 --
 ALTER TABLE `superadmin`
   MODIFY `id` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `user`
+--
+ALTER TABLE `user`
+  MODIFY `id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Constraints for dumped tables
